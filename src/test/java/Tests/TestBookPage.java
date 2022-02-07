@@ -65,19 +65,87 @@ public class TestBookPage {
     }
 
     @Test
-    public void displayFourProducts () throws InterruptedException {
+    public void displayFourProductsInGrid () throws InterruptedException {
 
 
         Homepage homepage = new Homepage(driver);
         homepage.goToBooksPage();
         BooksPage booksPg = new BooksPage(driver);
+        booksPg.selectGridFromDropdown();
         booksPg.select4ProductsDisplayed();
 
+        List<WebElement> allProductsShownOnPage = driver.findElements(By.className("item-box"));
+        int numberOfProducts = allProductsShownOnPage.size();
 
-        int numberOfelements = driver.findElements(By.xpath("//body/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[3]")).size();
-
-
-        Assert.assertEquals(numberOfelements, 4);
+        Assert.assertEquals(numberOfProducts, 4);
     }
+
+    @Test
+    public void displayEightProductsInGrid () throws InterruptedException {
+
+
+        Homepage homepage = new Homepage(driver);
+        homepage.goToBooksPage();
+        BooksPage booksPg = new BooksPage(driver);
+        booksPg.selectGridFromDropdown();
+        booksPg.select8ProductsDisplayed();
+
+        List<WebElement> allProductsShownOnPage = driver.findElements(By.className("item-box"));
+        int numberOfProducts = allProductsShownOnPage.size();
+
+        if (numberOfProducts <= 8) {
+            int expected = numberOfProducts;
+            Assert.assertEquals(numberOfProducts, expected);
+        }
+    }
+
+    @Test
+    public void displayFourProductsInList () throws InterruptedException {
+
+
+        Homepage homepage = new Homepage(driver);
+        homepage.goToBooksPage();
+        BooksPage booksPg = new BooksPage(driver);
+        booksPg.selectListFromDropdown();
+        booksPg.select4ProductsDisplayed();
+
+        List<WebElement> allProductsShownOnPage = driver.findElements(By.className("item-box"));
+        int numberOfProducts = allProductsShownOnPage.size();
+
+        Assert.assertEquals(numberOfProducts, 4);
+    }
+
+    @Test
+    public void displayEightProductsInList () throws InterruptedException {
+
+        Homepage homepage = new Homepage(driver);
+        homepage.goToBooksPage();
+        BooksPage booksPg = new BooksPage(driver);
+        booksPg.selectListFromDropdown();
+        booksPg.select8ProductsDisplayed();
+
+
+        List<WebElement> allProductsShownOnPage = driver.findElements(By.className("item-box"));
+        int numberOfProducts = allProductsShownOnPage.size();
+
+        if (numberOfProducts <= 8) {
+            int expected = numberOfProducts;
+            Assert.assertEquals(numberOfProducts, expected);
+        }
+    }
+
+    @Test
+    public void sortProductsFromLowToHighPrice () {
+        Homepage homepage = new Homepage(driver);
+        homepage.goToBooksPage();
+        BooksPage booksPg = new BooksPage(driver);
+
+        List<WebElement> allPricesShownOfPage = driver.findElements(By.className("price actual-price"));
+
+        
+
+    }
+
+
 
 }

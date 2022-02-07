@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 public class BooksPage {
 
     WebDriver wd;
@@ -31,6 +33,9 @@ public class BooksPage {
 
     @FindBy (xpath = "//body[1]/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[3]/select[1]")
     WebElement numberOfProductsOnPageDropdown;
+
+    @FindBy (className = "item-box" )
+    WebElement oneProduct;
 
 
 
@@ -59,5 +64,12 @@ public class BooksPage {
         Thread.sleep(2000);
         chooseFour.selectByVisibleText("4");
     }
+
+    public void select8ProductsDisplayed () throws InterruptedException {
+        Select chooseFour = new Select(this.numberOfProductsOnPageDropdown);
+        Thread.sleep(2000);
+        chooseFour.selectByVisibleText("8");
+    }
+
 
 }
