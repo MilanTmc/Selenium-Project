@@ -12,6 +12,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TestBookPage {
@@ -135,14 +137,33 @@ public class TestBookPage {
     }
 
     @Test
-    public void sortProductsFromLowToHighPrice () {
+    public void sortProductsFromLowToHighPrice () throws InterruptedException {
         Homepage homepage = new Homepage(driver);
         homepage.goToBooksPage();
         BooksPage booksPg = new BooksPage(driver);
 
-        List<WebElement> allPricesShownOfPage = driver.findElements(By.className("price actual-price"));
+        List<WebElement> allPricesShownOnPageBeforeSorting = driver.findElements(By.cssSelector("div.master-wrapper-page:nth-child(4) div.master-wrapper-content div.master-wrapper-main:nth-child(5) div.center-2 div.page.category-page div.page-body div.product-grid div.item-box:nth-child(1) div.product-item div.details div.add-info div.prices > span.price.actual-price:nth-child(2)"));
+        List<Double> pricesBeforeToDouble = new ArrayList<>();
+        for (WebElement e : allPricesShownOnPageBeforeSorting) {
+            double cenaBefore = Double.parseDouble(e.getText());
+            pricesBeforeToDouble.add(cenaBefore);
+        }
 
-        
+
+
+        booksPg.selectFromLowToHighPrice();
+        Thread.sleep(3000);
+
+        List<WebElement> allPricesShownOnPageAfterSorting = driver.findElements(By.cssSelector("div.master-wrapper-page:nth-child(4) div.master-wrapper-content div.master-wrapper-main:nth-child(5) div.center-2 div.page.category-page div.page-body div.product-grid div.item-box:nth-child(1) div.product-item div.details div.add-info div.prices > span.price.actual-price:nth-child(2)"));
+        List<Double> pricesAfterToDouble = new ArrayList<>();
+        for (WebElement e : allPricesShownOnPageAfterSorting) {
+            double cenaAfter = Double.parseDouble(e.getText());
+            pricesAfterToDouble.add(cenaAfter);
+        }
+
+        Collections.sort(pricesBeforeToDouble);
+
+        Assert.assertEquals(pricesBeforeToDouble, pricesAfterToDouble);
 
     }
 

@@ -34,8 +34,8 @@ public class BooksPage {
     @FindBy (xpath = "//body[1]/div[4]/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[3]/select[1]")
     WebElement numberOfProductsOnPageDropdown;
 
-    @FindBy (className = "item-box" )
-    WebElement oneProduct;
+    @FindBy (xpath = "//select[@id='products-orderby']")
+    WebElement productsOrderByDropdown;
 
 
 
@@ -69,6 +69,12 @@ public class BooksPage {
         Select chooseFour = new Select(this.numberOfProductsOnPageDropdown);
         Thread.sleep(2000);
         chooseFour.selectByVisibleText("8");
+    }
+
+    public void selectFromLowToHighPrice () throws InterruptedException {
+        Select chooseFromLowToHigh = new Select(this.productsOrderByDropdown);
+        Thread.sleep(2000);
+        chooseFromLowToHigh.selectByVisibleText("Price: Low to High");
     }
 
 
